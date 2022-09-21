@@ -1,0 +1,21 @@
+name: 'Populate Jira IDs into Release Changelog'
+description: 'This will take changelogs as Input from https://github.com/metcalfc/changelog-generator and will Pull out Jira IDs from commit messages and populate Jira Titles in Change log and will give that as Output'
+inputs:
+  changelog:
+    description: "Changelog including each commit & their commit messages"
+    required: true
+  jiraUserEmail:
+    description: "Email of Who created token"
+    required: true
+  jiraUserToken:
+    description: "user token from Jira https://id.atlassian.com/manage-profile/security/api-tokens"
+    required: true
+  jiraProjectName:
+    description: "subdomain on atlassian, ex: https://${jiraProjectName}.atlassian.net"
+    required: true
+outputs:
+  updated_changelog:
+    description: "Changelog with Jira IDs and Respective Titles"
+runs:
+  using: 'node16'
+  main: 'compiled/index.js'
