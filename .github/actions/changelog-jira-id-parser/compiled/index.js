@@ -8994,7 +8994,7 @@ const axios = __nccwpck_require__(8211);
 		});
 		console.log("Jira Title Object", jiraTitleObject);
 
-		const updatedChangeLog = getReleaseMd(jiraTitleObject);
+		const updatedChangeLog = getReleaseMd(jiraTitleObject, jiraProjectName);
 		console.log("Updated Changelog", updatedChangeLog);
 
 		core.setOutput("updatedChangeLog", updatedChangeLog);
@@ -9018,7 +9018,7 @@ function getCommitMessages(changeLog) {
 
 // to make sure commit message are valid & does contain Jira Ids
 function filterCommits(msg) {
-	return /(fix|poc|chore|feat|refactor|style|test): (LOS|LMS|UI|TEST)-\d+: .*/.test(msg);
+	return /(fix|poc|chore|feat|refactor|style|test): (LOS|LMS|UI)-\d+: .*/.test(msg);
 }
 
 // returns list of Unique Jira Ids
@@ -9037,14 +9037,18 @@ function getJiraIdFromCommit(msg) {
 	return jiraId;
 }
 
-function getReleaseMd(jiraTitleObject) {
+function getReleaseMd(jiraTitleObject, jiraProjectName) {
 	let str = "";
 
 	Object.entries(jiraTitleObject).forEach(([jiraID, jiraTitle]) => {
-		str += `- [${jiraID}](${getTicketOnJiraLink(jiraID)} - ${jiraTitle} \n`;
+		str += `- [${jiraID}](${getTicketOnJiraLink(jiraID, jiraProjectName)} - ${jiraTitle} \n`;
 	});
 
 	return str;
+}
+
+function getTicketOnJiraLink(jiraId, jiraProjectname) {
+	return `https://${jiraProjectname}.atlassian.net/browse/${jiraId}}`;
 }
 
 // takes list of JiraIds
