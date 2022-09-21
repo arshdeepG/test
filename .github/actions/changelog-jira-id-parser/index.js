@@ -26,6 +26,7 @@ const axios = require("axios");
 
 		core.setOutput("updatedChangeLog", updatedChangeLog);
 	} catch (error) {
+		console.log("Error", error)
 		core.setFailed(error.message);
 	}
 })();
