@@ -8999,6 +8999,7 @@ const axios = __nccwpck_require__(8211);
 
 		core.setOutput("updatedChangeLog", updatedChangeLog);
 	} catch (error) {
+		console.log("Error", error)
 		core.setFailed(error.message);
 	}
 })();
