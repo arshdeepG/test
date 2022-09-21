@@ -1,0 +1,99 @@
+name: Create Release Branch
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: "Release type (one of): patch, minor, major"
+        required: true
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout project repository
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          registry-url: https://registry.npmjs.org/
+          node-version: "16"
+
+      # Configure Git
+      - name: Git configuration
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions"
+
+      # Bump package version
+      # Use tag latest
+      - name: Bump release version
+        if: startsWith(github.event.inputs.release-type, 'pre') != true
+        run: |
+          echo "NEW_VERSION=$(npm --no-git-tag-version version $RELEASE_TYPE)" >> $GITHUB_ENV
+          echo "RELEASE_TAG=latest" >> $GITHUB_ENV
+        env:
+          RELEASE_TYPE: ${{ github.event.inputs.release-type }}
+
+      # Update changelog unreleased section with new version
+      - name: Update changelog
+        uses: superfaceai/release-changelog-action@v1
+        with:
+          path-to-changelog: CHANGELOG.md
+          version: ${{ env.NEW_VERSION }}
+          operation: release
+
+      # Create a release branch
+      - name: Create release branch
+        run: git checkout -b release/${{ env.NEW_VERSION }}
+
+      # Commit changes
+      - name: Commit CHANGELOG.md and package.json changes and create tag
+        run: |
+          git add "package.json"
+          git add "CHANGELOG.md"
+          git commit -m "chore: release ${{ env.NEW_VERSION }}"
+      # Push repository changes
+      - name: Push changes to repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
+        run: |
+          git push origin release/${{ env.NEW_VERSION }}
+
+      # Create pull request with main
+      - name: Create Pull Request to main
+        uses: devops-infra/action-pull-request@v0.5.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_branch: release/${{ env.NEW_VERSION }}
+          target_branch: main
+          title: Github Bot - Release Version update ${{ env.NEW_VERSION}}
+          template: .github/pull_request_template.md
+          body: "**Automated pull request**"
+
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v3.0.0
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse Changelog to Populate JiraIds and Jira Title
+        uses: ./.github/actions/changelog-jira-id-parser
+        id: changelog_jira_parser
+        with:
+          changelog: ${{ steps.changelog.outputs.changelog }}
+          jiraUserEmail: ${{ secrets.JIRA_USER }}
+          jiraUserToken: ${{ secrets.JIRA_TOKEN }}
+          jiraProjectName: "arshkumar"
+
+      - name: Create Release & Release Documentation
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.NEW_VERSION }}
+          name: Release ${{ env.NEW_VERSION }}
+          body: ${{ steps.changelog_jira_parser.outputs.updated_changelog }}
+          prerelease: ${{ startsWith(github.event.inputs.release-type, 'pre') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
