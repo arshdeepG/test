@@ -8997,7 +8997,7 @@ const axios = __nccwpck_require__(8211);
 		const updatedChangeLog = getReleaseMd(jiraTitleObject, jiraProjectName);
 		console.log("Updated Changelog", updatedChangeLog);
 
-		core.setOutput("updatedChangeLog", updatedChangeLog);
+		core.setOutput("updated_changelog", updatedChangeLog);
 	} catch (error) {
 		console.log("Error", error)
 		core.setFailed(error.message);
