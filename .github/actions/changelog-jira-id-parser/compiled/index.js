@@ -9019,7 +9019,7 @@ function getCommitMessages(changeLog) {
 
 // to make sure commit message are valid & does contain Jira Ids
 function filterCommits(msg) {
-	return /(fix|poc|chore|feat|refactor|style|test): (LOS|LMS|UI)-\d+: .*/.test(msg);
+	return /(fix|poc|chore|feat|refactor|style|test): (LOS|LMS|UI|TEST)-\d+: .*/.test(msg);
 }
 
 // returns list of Unique Jira Ids
