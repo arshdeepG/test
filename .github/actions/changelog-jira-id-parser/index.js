@@ -21,7 +21,7 @@ const axios = require("axios");
 		});
 		console.log("Jira Title Object", jiraTitleObject);
 
-		const updatedChangeLog = getReleaseMd(jiraTitleObject);
+		const updatedChangeLog = getReleaseMd(jiraTitleObject, jiraProjectName);
 		console.log("Updated Changelog", updatedChangeLog);
 
 		core.setOutput("updatedChangeLog", updatedChangeLog);
@@ -64,14 +64,18 @@ function getJiraIdFromCommit(msg) {
 	return jiraId;
 }
 
-function getReleaseMd(jiraTitleObject) {
+function getReleaseMd(jiraTitleObject, jiraProjectName) {
 	let str = "";
 
 	Object.entries(jiraTitleObject).forEach(([jiraID, jiraTitle]) => {
-		str += `- [${jiraID}](${getTicketOnJiraLink(jiraID)} - ${jiraTitle} \n`;
+		str += `- [${jiraID}](${getTicketOnJiraLink(jiraID, jiraProjectName)} - ${jiraTitle} \n`;
 	});
 
 	return str;
+}
+
+function getTicketOnJiraLink(jiraId, jiraProjectname) {
+	return `https://${jiraProjectname}.atlassian.net/browse/${jiraId}}`;
 }
 
 // takes list of JiraIds
