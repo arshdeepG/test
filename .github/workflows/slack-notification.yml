@@ -1,8 +1,7 @@
-name: Slack Message
+name: Slack Notification for Release/${{ github.event.release.tag_name}}
 on:
   release:
     types: [published]
-
 jobs:
   build:
     runs-on: ubuntu-latest
