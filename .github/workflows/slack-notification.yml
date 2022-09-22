@@ -1,4 +1,4 @@
-name: Slack Notification for Release/${{ github.event.release.tag_name}}
+name: Slack Notification for Release
 on:
   release:
     types: [published]
