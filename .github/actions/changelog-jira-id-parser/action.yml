@@ -1,4 +1,4 @@
-name: 'Populate Jira IDs into Release Changelog'
+ename: 'Populate Jira IDs into Release Changelog'
 description: 'This will take changelogs as Input from https://github.com/metcalfc/changelog-generator and will Pull out Jira IDs from commit messages and populate Jira Titles in Change log and will give that as Output'
 inputs:
   changelog:
@@ -14,7 +14,7 @@ inputs:
     description: "subdomain on atlassian, ex: https://${jiraProjectName}.atlassian.net"
     required: true
 outputs:
-  updated_changelog:
+  updatedChangelog:
     description: "Changelog with Jira IDs and Respective Titles"
 runs:
   using: 'node16'
