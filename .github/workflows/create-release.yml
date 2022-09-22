@@ -76,7 +76,6 @@ jobs:
           source_branch: release/${{ env.NEW_VERSION }}
           target_branch: main
           title: Github Bot - Release Version update ${{ env.NEW_VERSION}}
-          template: .github/pull_request_template.md
           body: "**Automated pull request**"
 
       - name: Create Release & Release Documentation
