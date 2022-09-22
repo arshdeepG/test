@@ -36,24 +36,31 @@ jobs:
         env:
           RELEASE_TYPE: ${{ github.event.inputs.release-type }}
 
-      # Update changelog unreleased section with new version
-      - name: Update changelog
-        uses: superfaceai/release-changelog-action@v1
-        with:
-          path-to-changelog: CHANGELOG.md
-          version: ${{ env.NEW_VERSION }}
-          operation: release
-
       # Create a release branch
       - name: Create release branch
         run: git checkout -b release/${{ env.NEW_VERSION }}
 
       # Commit changes
-      - name: Commit CHANGELOG.md and package.json changes and create tag
+      - name: Commit package.json changes
         run: |
           git add "package.json"
-          git add "CHANGELOG.md"
           git commit -m "chore: release ${{ env.NEW_VERSION }}"
+          
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v3.0.0
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse Changelog to Populate JiraIds and Jira Title
+        uses: ./.github/actions/changelog-jira-id-parser
+        id: changelog_jira_parser
+        with:
+          changelog: ${{ steps.changelog.outputs.changelog }}
+          jiraUserEmail: ${{ secrets.JIRA_USER }}
+          jiraUserToken: ${{ secrets.JIRA_TOKEN }}
+          jiraProjectName: "arshkumar"          
+          
       # Push repository changes
       - name: Push changes to repository
         env:
@@ -71,21 +78,6 @@ jobs:
           title: Github Bot - Release Version update ${{ env.NEW_VERSION}}
           template: .github/pull_request_template.md
           body: "**Automated pull request**"
-
-      - name: Generate changelog
-        id: changelog
-        uses: metcalfc/changelog-generator@v3.0.0
-        with:
-          myToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Parse Changelog to Populate JiraIds and Jira Title
-        uses: ./.github/actions/changelog-jira-id-parser
-        id: changelog_jira_parser
-        with:
-          changelog: ${{ steps.changelog.outputs.changelog }}
-          jiraUserEmail: ${{ secrets.JIRA_USER }}
-          jiraUserToken: ${{ secrets.JIRA_TOKEN }}
-          jiraProjectName: "arshkumar"
 
       - name: Create Release & Release Documentation
         id: create_release
