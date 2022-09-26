@@ -37,4 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: test:${{ steps.package-version.outputs.current-version}}
+          tags: user/app:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
