@@ -122,4 +122,4 @@ jobs:
           body: ${{ steps.changelog_jira_parser.outputs.updatedChangelog }}
           prerelease: ${{ startsWith(github.event.inputs.release-type, 'pre') }}
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
