@@ -16,7 +16,14 @@ jobs:
     # steps to perform in job
     steps:
       - name: Checkout code
+        if: ${{ github.event_name == 'pull_request' }}
         uses: actions/checkout@v3
+      
+      - name: Tag Checkout
+        if: ${{ github.event_name == 'release' }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.tag_name}}
 
       # setup Docker buld action
       - name: Set up Docker Buildx
