@@ -4,7 +4,7 @@
     "color": "EEEEEE"
   },
   "CHECKS": {
-    "regexp": "(fix|poc|chore|feat|refactor|style|test): (TEST)-\d+: .*",
+    "regexp": "(fix|poc|chore|feat|refactor|style|test): (TEST)-d+: .*",
     "regexpFlags": "i",
     "ignoreLabels" : ["dont-check-PRs-with-this-label", "meta"]
   },
