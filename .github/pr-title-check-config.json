@@ -1,0 +1,17 @@
+{
+  "LABEL": {
+    "name": "PR Title needs formatting",
+    "color": "EEEEEE"
+  },
+  "CHECKS": {
+    "prefixes": ["fix: ", "feat: "],
+    "regexp": "(fix|poc|chore|feat|refactor|style|test): (LOS|LMS|UI)-\\d\\+: .*",
+    "regexpFlags": "i",
+    "ignoreLabels" : ["dont-check-PRs-with-this-label", "meta"]
+  },
+  "MESSAGES": {
+    "success": "Success",
+    "failure": "Failed",
+    "notice": ""
+  }
+}
