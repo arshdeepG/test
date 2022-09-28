@@ -5,7 +5,7 @@
   },
   "CHECKS": {
     "prefixes": ["fix: ", "feat: "],
-    "regexp": "(fix|poc|chore|feat|refactor|style|test): (LOS|LMS|UI)-\\d\\+: .*",
+    "regexp": "(fix|poc|chore|feat|refactor|style|test): (TEST)-\\d\\+: .*",
     "regexpFlags": "i",
     "ignoreLabels" : ["dont-check-PRs-with-this-label", "meta"]
   },
