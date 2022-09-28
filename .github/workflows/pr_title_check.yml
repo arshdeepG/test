@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-  check:
+  check-pr-title:
     runs-on: ubuntu-latest
     steps:
       - name: PR Title Check
