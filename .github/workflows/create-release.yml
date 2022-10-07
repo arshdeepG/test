@@ -67,7 +67,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: ${{ github.event.repository.name }}:${{ env.NEW_VERSION }}
+          tags: ${{ secrets.USERNAME }}/${{ github.event.repository.name }}:${{ env.NEW_VERSION }}
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache,mode=max
           push: true
