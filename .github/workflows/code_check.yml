@@ -32,6 +32,6 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache,compression-level=9
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache,mode=max
           push: false
