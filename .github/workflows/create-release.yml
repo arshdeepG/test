@@ -5,6 +5,11 @@ on:
       release-type:
         description: "Release type (one of): patch, minor, major"
         required: true
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
 jobs:
   release:
     runs-on: ubuntu-latest
