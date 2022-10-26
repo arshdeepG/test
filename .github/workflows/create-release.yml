@@ -108,6 +108,7 @@ jobs:
         uses: devops-infra/action-pull-request@v0.5.0
         with:
           github_token: ${{ secrets.PAT }}
+          label: dont-check-PRs-with-this-label
           source_branch: release/${{ env.NEW_VERSION }}
           target_branch: main
           title: Github Bot - Release Version update ${{ env.NEW_VERSION}}
