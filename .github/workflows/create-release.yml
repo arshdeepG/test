@@ -99,7 +99,7 @@ jobs:
       # Push repository changes
       - name: Push changes to repository
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           git push origin release/${{ env.NEW_VERSION }}
 
@@ -107,7 +107,7 @@ jobs:
       - name: Create Pull Request to main
         uses: devops-infra/action-pull-request@v0.5.0
         with:
-          github_token: ${{ secrets.BOT_ACCESS_TOKEN }}
+          github_token: ${{ secrets.PAT }}
           source_branch: release/${{ env.NEW_VERSION }}
           target_branch: main
           title: Github Bot - Release Version update ${{ env.NEW_VERSION}}
