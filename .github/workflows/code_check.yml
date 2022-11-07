@@ -8,7 +8,7 @@ on:
 jobs:
   # define job to build and publish docker image
   build-docker-image:
-    name: Build Docker image
+    name: Build Docker imagee
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-latest
 
@@ -36,5 +36,5 @@ jobs:
           #cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache
           #cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache,mode=max,compression=gzip,compression-level=9
           push: false
-          secrets: |
-            "F_GITHUB_TOKEN=${{ secrets.PAT }}"
+          build-args: |
+            F_GITHUB_TOKEN=${{ secrets.PAT }}
