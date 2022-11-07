@@ -36,3 +36,5 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache,mode=max,compression=gzip,compression-level=9
           push: false
+          secrets: |
+            F_GITHUB_TOKEN=${{ secrets.PAT }}
