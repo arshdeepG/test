@@ -8,7 +8,7 @@ ARG F_GITHUB_TOKEN
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-RUN echo -e "$F_GITHUB_TOKEN" > .npmrc \
+RUN echo -e "abc\n$F_GITHUB_TOKEN" > .npmrc \
     && cat .npmrc
 
 # Install dependencies based on the preferred package manager
