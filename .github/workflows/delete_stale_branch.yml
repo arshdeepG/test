@@ -12,9 +12,14 @@ jobs:
   delete_stale_branches:
     runs-on: ubuntu-latest
     name: Delete stale branches
+#     container:
+#         image: docker://phpdockerio/github-actions-delete-abandoned-branches:latest
+    #    credentials:
+     #      username: <YOUR_USERNAME>
+      #     password: ${{  secrets.DOCKER_CONTAINER_REGISTRY_TOKEN }}                
     steps:
       - name: Delete stale branches
-        uses: arshdeepkumar482/github-actions-delete-abandoned-branches@v1
+        uses: docker://phpdockerio/github-actions-delete-abandoned-branches:latest
         id: delete_stuff
         with:
           github_token: ${{ github.token }}
