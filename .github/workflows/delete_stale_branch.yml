@@ -19,7 +19,7 @@ jobs:
       #     password: ${{  secrets.DOCKER_CONTAINER_REGISTRY_TOKEN }}                
     steps:
       - name: Delete stale branches
-        uses: docker://phpdockerio/github-actions-delete-abandoned-branches:latest
+        uses: arshdeepkumar482/github-actions-delete-abandoned-branches@v1
         id: delete_stuff
         with:
           github_token: ${{ github.token }}
