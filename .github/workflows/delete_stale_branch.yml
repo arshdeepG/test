@@ -3,7 +3,7 @@ name: Delete stale branches
 on:
   # Run once a week on monday 10:00 AM
   schedule:
-    - cron: "* * * * *"
+    - cron: "*/5 * * * *"
 
   # Allow workflow to be manually run from the GitHub UI
   workflow_dispatch:
