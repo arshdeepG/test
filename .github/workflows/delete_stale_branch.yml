@@ -3,7 +3,7 @@ name: Delete stale branches
 on:
   # Run once a week on monday 10:00 AM
   schedule:
-    - cron: "00 10 * * 1"
+    - cron: "* * * * *"
 
   # Allow workflow to be manually run from the GitHub UI
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
         id: delete_stuff
         with:
           github_token: ${{ github.token }}
-          last_commit_age_days: 45
+          last_commit_age_days: 10
           ignore_branches: main,develop
 
           # Disable dry run and actually get stuff deleted
