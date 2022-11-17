@@ -1,0 +1,28 @@
+name: Delete stale branches
+
+on:
+  # Run once a week on monday 10:00 AM
+  schedule:
+    - cron: "00 10 * * 1"
+
+  # Allow workflow to be manually run from the GitHub UI
+  workflow_dispatch:
+
+jobs:
+  delete_stale_branches:
+    runs-on: ubuntu-latest
+    name: Delete stale branches
+    steps:
+      - name: Delete stale branches
+        uses: arshdeepkumar482/github-actions-delete-abandoned-branches@v1
+        id: delete_stuff
+        with:
+          github_token: ${{ github.token }}
+          last_commit_age_days: 45
+          ignore_branches: main,develop
+
+#          # Disable dry run and actually get stuff deleted
+#          dry_run: no
+
+      - name: Get output
+        run: "echo 'Deleted branches: ${{ steps.delete_stuff.outputs.deleted_branches }}'"
