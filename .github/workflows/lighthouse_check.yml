@@ -1,4 +1,4 @@
-name: Delete stale branches
+name: Lighthouse check
 
 on:
   # Run once a week on monday 10:00 AM
