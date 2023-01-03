@@ -11,5 +11,17 @@ jobs:
 
     # steps to perform in job
     steps:
-      - name: Checkout code
+    
+          # Checkout project repository
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          registry-url: https://registry.npmjs.org/
+          node-version: "16"
+          
+      - name: Read Dir
         uses: arshdeepkumar482/test-action@v1.0.0
