@@ -1,0 +1,27 @@
+name: Test Dir
+on:
+  workflow_dispatch:
+
+jobs:
+  # define job to build and publish docker image
+  test:
+    name: read dir
+    # run only when code is compiling and tests are passing
+    runs-on: ubuntu-latest
+
+    # steps to perform in job
+    steps:
+    
+          # Checkout project repository
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          registry-url: https://registry.npmjs.org/
+          node-version: "16"
+          
+      - name: Read Dir
+        uses: arshdeepkumar482/test-action@v1.0.0

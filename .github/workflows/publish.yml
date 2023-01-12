@@ -1,14 +1,13 @@
-name: Code check
+name: Publish Package to Github Package
 
 on:
-  # run it during pull request
-  pull_request:
-  push:
+  release:
+    types: [created]
+  workflow_dispatch:
 
 jobs:
-  # define job to build and publish docker image
-  build-docker-image:
-    name: Build Docker imagee
+  build_and_publish:
+    name: Build & Publish Package
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-latest
 
@@ -17,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # setup Docker buld action
+      # setup Docker build action
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v2
@@ -28,13 +27,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build
+      - name: Build & Publish
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile
-          #cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache
-          #cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache,mode=max,compression=gzip,compression-level=9
-          push: false
+          file: ./Dockerfile-publish
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:buildcache,mode=max
+          push: true
           build-args: |
             F_GITHUB_TOKEN=${{ secrets.PAT }}

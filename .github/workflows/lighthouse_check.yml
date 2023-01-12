@@ -1,0 +1,23 @@
+name: Lighthouse check
+
+on:
+  # Run once a week on monday 10:00 AM
+#   schedule:
+#     - cron: "*/10 * * * *"
+
+  # Allow workflow to be manually run from the GitHub UI
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            https://rupifi.com
+          budgetPath: ".github/budget.json" # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
