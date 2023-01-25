@@ -1,6 +1,7 @@
 name: Code check
 
 on:
+  workflow_dispatch:
   # run it during pull request
   pull_request:
   push:
@@ -16,6 +17,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        
+        
+      - uses: docker://ghcr.io/kciter/aws-ecr-action:latest
+        with:
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          repo: arsh/${{ github.event.repository.name }}
+          region: ap-south-1
+          tags: latest,${{ github.sha }}
+          create_repo: true
+          image_scanning_configuration: true
 
       # setup Docker buld action
       - name: Set up Docker Buildx
