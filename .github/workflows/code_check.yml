@@ -36,7 +36,7 @@ jobs:
         context: .
         file: ./Dockerfile
         tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/${{ github.event.repository.name }}:1
-        cache-from: type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/${{ github.event.repository.name }}:buildcache
-        cache-to: type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/${{ github.event.repository.name }}:buildcache,mode=max
+        cache-from: type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/ecr-public/${{ github.event.repository.name }/buildcache:1
+        cache-to: type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/ecr-public/${{ github.event.repository.name }/buildcache:1
         push: false
 
