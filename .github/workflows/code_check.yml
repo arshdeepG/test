@@ -36,5 +36,5 @@ jobs:
         ECR_REPOSITORY: test
         IMAGE_TAG: test
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg BUILDKIT_INLINE_CACHE=1 .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
