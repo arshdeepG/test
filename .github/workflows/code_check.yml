@@ -35,8 +35,6 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        cache-from: type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/${{ github.event.repository.name }}:buildcache
-        cache-to: type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/${{ github.event.repository.name }}:buildcache,mode=max
         push: false
 
     - name: Build, tag, and push image to Amazon ECR
