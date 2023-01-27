@@ -40,11 +40,3 @@ jobs:
         cache-to: type=registry,ref=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/${{ github.event.repository.name }}:buildcache,mode=max
         push: false
 
-    - name: Build, tag, and push image to Amazon ECR
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: test
-        IMAGE_TAG: test
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg BUILDKIT_INLINE_CACHE=1 .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
