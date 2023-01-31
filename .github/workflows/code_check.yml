@@ -13,15 +13,7 @@ jobs:
     name: Build Image
     runs-on: ubuntu-latest
 
-     - name: Build, tag, and push docker image to Amazon ECR
-      env:
-        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: ${{ github.event.repository.name }}
-        IMAGE_TAG: cache
-      run: |
-        docker buildx create --use
-        docker buildx build --cache-from type=registry,ref=REGISTRY/$REPOSITORY:$IMAGE_TAG --cache-to type=registry,ref=$REGISTRY/$REPOSITORY:$IMAGE_TAG -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-
+ 
     steps:
 
     - name: Check out code
@@ -40,7 +32,7 @@ jobs:
       
     - name: Build
       uses: docker/build-push-action@v2
-     env:
+      env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         REPOSITORY: ${{ github.event.repository.name }}
         IMAGE_TAG: cache
