@@ -38,5 +38,3 @@ jobs:
       run: |
         docker buildx create --use
         docker buildx build --cache-from=type=registry,ref=REGISTRY/$REPOSITORY:$IMAGE_TAG --cache-to=type=registry,ref=$REGISTRY/$REPOSITORY:$IMAGE_TAG --push -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-
