@@ -40,7 +40,5 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        cache-from: type=registry,ref=$REGISTRY/$REPOSITORY:$IMAGE_TAG
-        cache-to: type=registry,ref=$REGISTRY/$REPOSITORY:$IMAGE_TAG,mode=max
         push: false
         pull: true
