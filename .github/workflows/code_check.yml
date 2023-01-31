@@ -38,7 +38,8 @@ jobs:
         REPOSITORY: ${{ github.event.repository.name }}
         IMAGE_TAG: cache
       with:
+        tags: $REGISTRY/$REPOSITORY:$IMAGE_TAG
         context: .
         file: ./Dockerfile
-        push: false
+        push: true
         pull: true
