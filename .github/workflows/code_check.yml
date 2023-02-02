@@ -39,7 +39,7 @@ jobs:
       run: |
         [ -z "$(docker images -q $REGISTRY/$REPOSITORY:$IMAGE_TAG)" ] || docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
         docker build -t $REPOSITORY:$IMAGE_TAG .
-        docker tag -f $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
         docker push $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
         
 
