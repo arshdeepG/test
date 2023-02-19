@@ -49,4 +49,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
-          git push origin main --force
+          git push origin main release/${{ env.NEW_VERSION }} --force
