@@ -43,4 +43,4 @@ jobs:
       # Push repository changes
       - name: Push changes to repository
         run: |
-          git push origin main release/${{ env.NEW_VERSION }} --force
+          git push origin main release/${{ env.NEW_VERSION }}
