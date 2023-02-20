@@ -16,5 +16,8 @@ jobs:
         
       - name: Do something
         if: github.event.pull_request.merged == true && github.base_ref == 'main'
+        env:
+          BASE_REF: ${{ github.base_ref }}
         run: |
          echo The PR was merged
+         echo "$BASE_REF"
