@@ -8,6 +8,12 @@ jobs:
   if_merged:
     runs-on: ubuntu-latest
     steps:
+        # To check the github context
+      - name: Dump Github context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+        
       - name: Do something
         if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         run: |
