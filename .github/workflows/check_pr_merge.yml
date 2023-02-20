@@ -1,8 +1,8 @@
 name: Pr Merged
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types:
+      - closed
 
 jobs:
   if_merged:
@@ -15,6 +15,6 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
         
       - name: Do something
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true
         run: |
          echo The PR was merged
