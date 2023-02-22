@@ -6,3 +6,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
+      
+  build:
+    commands:
+      - docker build -t test .
