@@ -6,7 +6,8 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      
+      - VERSION=$(npm run version --silent)
+      - echo $VERSION
   build:
     commands:
       - docker build -t test .
