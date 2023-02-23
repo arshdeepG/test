@@ -1,6 +1,7 @@
 name: Slack Notification for Release
 on:
   release:
+    types: [published, edited]
 
 jobs:
   build:
