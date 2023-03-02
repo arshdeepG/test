@@ -12,6 +12,10 @@ jobs:
       # Checkout project repository
       - name: Checkout
         uses: actions/checkout@v3
+        
+      - name: Is Branch Main
+        if: github.event.ref_name != 'main'
+        run: echo "Branch Should be `main`" | exit 1
 
       # Setup Node.js environment
       - name: Setup Node.js
