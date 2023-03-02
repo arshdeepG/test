@@ -15,7 +15,7 @@ jobs:
         
       - name: Is Branch Main
         if: github.event.ref_name != 'main'
-        run: ::error title=Wrong Branch::Branch should be Main
+        run: echo "::error title=Wrong Branch::Branch should be Main"
 
       # Setup Node.js environment
       - name: Setup Node.js
