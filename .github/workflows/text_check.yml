@@ -1,0 +1,20 @@
+name: Check Added Files
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  check_files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check Added Files
+        run: |
+          added_files=$(git diff --name-only HEAD^ HEAD)
+          for file in $added_files; do
+            if grep -q "test" "$file"; then
+              echo "Error: '$file' contains 'specific text'"
+              exit 1
+            fi
+          done
