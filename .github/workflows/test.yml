@@ -1,0 +1,30 @@
+name: Update prod branch
+on:
+  workflow_dispatch:
+  
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout project repository
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          registry-url: https://registry.npmjs.org/
+          node-version: "16"
+          
+      # To check the github context
+      - name: Dump Github context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+        
+      - name: Is Branch QA
+        if: github.event.ref_name != 'qa'
+        run: |
+          echo "::error title=Wrong Branch::Branch should be QA"
+          exit 1
