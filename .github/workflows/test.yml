@@ -26,6 +26,6 @@ jobs:
       - name: Is Branch QA
         if: github.event.ref_name != 'qa'
         run: |
-         echo  "${{ github.event.ref_name }}"
+         echo  "${{ github.ref_name }}"
          echo "::error title=Wrong Branch::Branch should be QA"
           exit 1
