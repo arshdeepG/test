@@ -1,6 +1,10 @@
 name: Update prod branch
 on:
   workflow_dispatch:
+    inputs:
+     use-emoji:
+        type: boolean
+        description: Include  emojis
   
 jobs:
   release:
