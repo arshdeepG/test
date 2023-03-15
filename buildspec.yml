@@ -8,4 +8,4 @@ phases:
       - aws --version
   build:
     commands:
-      - docker build -t test .
+      - npm run generate:version-file
