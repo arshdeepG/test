@@ -6,13 +6,6 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - PACKAGE_VERSION=$(cat package.json \
-        | grep version \
-        | head -1 \
-        | awk -F: '{ print $2 }' \
-        | sed 's/[",]//g')
-
-echo $PACKAGE_VERSION
   build:
     commands:
       - docker build -t test .
