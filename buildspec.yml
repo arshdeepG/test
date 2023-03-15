@@ -8,4 +8,4 @@ phases:
       - aws --version
   build:
     commands:
-      - npm run generate:version-file
+      - chmod +x generate-version-file.sh && ./generate-version-file.sh
