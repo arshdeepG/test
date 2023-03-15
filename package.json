@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "generate:version-file": "chmod +x generate-version-file.sh && ./generate-version-file.sh",
     "start": "next start",
     "lint": "next lint"
   },
