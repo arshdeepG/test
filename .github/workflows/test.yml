@@ -1,4 +1,4 @@
-name: Update prod branch
+name: Test Workflow
 on:
   workflow_dispatch:
     inputs:
@@ -47,5 +47,6 @@ jobs:
         
       - name: Delete a pre-release with the existing tag
         if: steps.getReleaseByTag.outputs.prerelease != 'false'
+        run: echo "Test Run"
  
           
