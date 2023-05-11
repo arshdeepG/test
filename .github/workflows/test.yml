@@ -2,9 +2,9 @@ name: Test Workflow
 on:
   workflow_dispatch:
     inputs:
-     use-emoji:
-        type: boolean
-        description: Include  emojis
+     tag:
+      type: string
+      required: true
   
 jobs:
   release:
@@ -34,7 +34,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: v2.2.4
+          tag: ${{ github.event.inputs.release-type }}
           prerelease: true
         continue-on-error: true
         
