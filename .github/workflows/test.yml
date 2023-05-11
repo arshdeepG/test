@@ -1,7 +1,9 @@
 name: Test Workflow
 on:
   workflow_dispatch:
-    inputs:
+    
+    
+    s:
      tag:
       type: string
       required: true
@@ -34,7 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: ${{ github.event.inputs.release-type }}
+          tag: ${{ github.event.inputs.tag }}
           prerelease: true
         continue-on-error: true
         
