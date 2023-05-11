@@ -25,11 +25,27 @@ jobs:
       - name: Dump Github context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-        
-      - name: Is Branch QA
-        if: github.event.ref_name != 'qa'
         run: |
-         echo  "${{ github.ref_name }}"
-         echo "::error title=Wrong Branch::Branch should be QA"
-          exit 1
+          echo "$GITHUB_CONTEXT"
+    
+      - name: get existing pre-release with the version name
+        id: getReleaseByTag
+        uses: cardinalby/git-get-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: v2.2.4
+          prerelease: true
+        continue-on-error: true
+        
+      - name: dump
+        env:           
+          GITHUB_CONTEXT: ${{ toJSON(steps.getReleaseByTag.outputs) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+       
+        
+      - name: Delete a pre-release with the existing tag
+        if: steps.getReleaseByTag.outputs.prerelease != 'false'
+ 
+          
